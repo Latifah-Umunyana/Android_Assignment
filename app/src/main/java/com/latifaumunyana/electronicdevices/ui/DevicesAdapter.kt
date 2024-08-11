@@ -20,7 +20,7 @@ class DevicesAdapter(var deviceList: List<Device>, val context: Context): Recycl
             tvName.text = device.name
             cvDevice.setOnClickListener{
                 val intent = Intent(context, DetailsActivity::class.java)
-                intent.putExtra("id", device.id)
+                intent.putExtra("id", device.id.toInt())
                 context.startActivity(intent)
             }
         }

@@ -3,6 +3,7 @@ package com.latifaumunyana.electronicdevices.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -25,18 +26,14 @@ class DetailsActivity : AppCompatActivity() {
         setContentView(binding.root)
         progressBar = binding.progressBar
 
-        val extra = intent.extras
-        if (extra != null){
-        val deviceId = intent.getIntExtra("id",0)
+        var deviceId = intent.getIntExtra("id",0)
         if (deviceId != null) {
             progressBar.visibility = View.VISIBLE
             deviceDetailViewModel.fetchDeviceDetails(deviceId)
-        } else {
-            Toast.makeText(this, "Device id is not found", Toast.LENGTH_SHORT).show()
         }
-    }
-        else{
-            Toast.makeText(this, "Device not found", Toast.LENGTH_SHORT).show()
+
+        else {
+            Toast.makeText(this, "Device id is not found", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -45,11 +42,11 @@ class DetailsActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         deviceDetailViewModel.detailLiveData.observe(this, Observer { detail ->
-
             progressBar.visibility = View.GONE
             displayDetails(detail)
         })
         deviceDetailViewModel.errorLiveData.observe(this, Observer { error ->
+            progressBar.visibility = View.GONE
             Toast.makeText(this, "Message: $error", Toast.LENGTH_LONG).show()
         })
     }
@@ -57,7 +54,7 @@ class DetailsActivity : AppCompatActivity() {
 fun displayDetails(detail: Details) {
 //        val detailsAdapter = DeviceDetailsAdapter(detail, this)
 //        binding.rvDetails.adapter = detailsAdapter
-
+    Log.d("DetailsActivity", "Detail: $detail")
     binding.tvName.text = detail?.color ?: "No data"
     binding.tvDescription.text = detail.description ?: "No data"
     binding.textView.text = detail.price.toString()
