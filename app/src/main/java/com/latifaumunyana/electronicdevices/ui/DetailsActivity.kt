@@ -52,10 +52,8 @@ class DetailsActivity : AppCompatActivity() {
     }
 
 fun displayDetails(detail: Details) {
-//        val detailsAdapter = DeviceDetailsAdapter(detail, this)
-//        binding.rvDetails.adapter = detailsAdapter
     Log.d("DetailsActivity", "Detail: $detail")
-    binding.tvName.text = detail?.color ?: "No data"
+    binding.tvName.text = detail.color ?: "No data"
     binding.tvDescription.text = detail.description ?: "No data"
     binding.textView.text = detail.price.toString()
     binding.tvCapacity.text = detail.capacity

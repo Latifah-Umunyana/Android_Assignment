@@ -2,6 +2,7 @@ package com.latifaumunyana.electronicdevices.ui
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -18,9 +19,11 @@ class DevicesAdapter(var deviceList: List<Device>, val context: Context): Recycl
        val device = deviceList[position]
         holder.binding.apply {
             tvName.text = device.name
-            cvDevice.setOnClickListener{
+            cvDevice.setOnClickListener {
                 val intent = Intent(context, DetailsActivity::class.java)
-                intent.putExtra("id", device.id.toInt())
+                val deviceId = device.id.toInt()
+                Log.d("DeviceAdapter", "Device ID: $deviceId")
+                intent.putExtra("id", deviceId)
                 context.startActivity(intent)
             }
         }
