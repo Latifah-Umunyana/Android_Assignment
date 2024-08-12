@@ -3,7 +3,6 @@ package com.latifaumunyana.electronicdevices.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.latifaumunyana.electronicdevices.model.Details
 import com.latifaumunyana.electronicdevices.model.Device
 import com.latifaumunyana.electronicdevices.repository.DevicesRepository
 import kotlinx.coroutines.launch
@@ -12,7 +11,7 @@ class DevicesViewModel: ViewModel() {
     val deviceRepository = DevicesRepository()
     val errorLiveData = MutableLiveData<String>()
     val deviceLiveData = MutableLiveData<List<Device>>()
-    val detailLiveData = MutableLiveData<Details>()
+    val detailLiveData = MutableLiveData<Device>()
 
     fun fetchDevices(){
         viewModelScope.launch {
@@ -25,12 +24,10 @@ class DevicesViewModel: ViewModel() {
             }
         }
     }
-
     fun fetchDeviceDetails(id: Int) {
         viewModelScope.launch {
             val response = deviceRepository.fetchDeviceDetails(id)
             if (response.isSuccessful) {
-//                val deviceDetails = response.body()
                 detailLiveData.postValue(response.body())
             } else {
                 errorLiveData.postValue(response.errorBody()?.string())

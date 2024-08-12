@@ -16,7 +16,7 @@ class DevicesAdapter(var deviceList: List<Device>, val context: Context): Recycl
     }
 
     override fun onBindViewHolder(holder: DevicesViewHolder, position: Int) {
-       val device = deviceList[position]
+        val device = deviceList[position]
         holder.binding.apply {
             tvName.text = device.name
             cvDevice.setOnClickListener {

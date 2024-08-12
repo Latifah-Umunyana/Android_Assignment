@@ -2,7 +2,6 @@ package com.latifaumunyana.electronicdevices.repository
 
 import com.latifaumunyana.electronicdevices.api.ApiClient
 import com.latifaumunyana.electronicdevices.api.DevicesApiInterface
-import com.latifaumunyana.electronicdevices.model.Details
 import com.latifaumunyana.electronicdevices.model.Device
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,7 +16,7 @@ class DevicesRepository {
         }
     }
 
-    suspend fun fetchDeviceDetails(id: Int): Response<Details> {
+    suspend fun fetchDeviceDetails(id: Int): Response<Device> {
         return withContext(Dispatchers.IO){
             apiClient.fetchDeviceDetails(id)
         }

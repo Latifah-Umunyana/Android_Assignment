@@ -12,12 +12,12 @@ import androidx.lifecycle.Observer
 import com.latifaumunyana.electronicdevices.databinding.ActivityDetailsBinding
 import com.latifaumunyana.electronicdevices.model.Details
 import com.latifaumunyana.electronicdevices.viewModel.DevicesViewModel
+import java.util.Objects
 
 class DetailsActivity : AppCompatActivity() {
     lateinit var binding: ActivityDetailsBinding
     val deviceDetailViewModel: DevicesViewModel by viewModels()
 
-    var deviceIds = 0
     lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +43,9 @@ class DetailsActivity : AppCompatActivity() {
         super.onResume()
         deviceDetailViewModel.detailLiveData.observe(this, Observer { detail ->
             progressBar.visibility = View.GONE
-            displayDetails(detail)
+            val detailsLowerCase = detail.data
+            Log.d("detailsList","List: $detail")
+            displayDetails(detailsLowerCase)
         })
         deviceDetailViewModel.errorLiveData.observe(this, Observer { error ->
             progressBar.visibility = View.GONE
@@ -51,11 +53,70 @@ class DetailsActivity : AppCompatActivity() {
         })
     }
 
-fun displayDetails(detail: Details) {
-    Log.d("DetailsActivity", "Detail: $detail")
-    binding.tvName.text = detail.color ?: "No data"
-    binding.tvDescription.text = detail.description ?: "No data"
-    binding.textView.text = detail.price.toString()
+    fun displayDetails(detail: Details) {
+        Log.d("DetailsActivity", "Detail: $detail")
+        binding.tvName.text = (detail.color)
+
+        if (detail.color != null){
+            binding.tvName.visibility = View.VISIBLE
+            binding.tvColor.visibility = View.VISIBLE
+        }
+
+        if (detail.color != null){
+            binding.tvColor.visibility = View.VISIBLE
+            binding.tvColor.visibility = View.VISIBLE
+        }
+        if (detail.price != null){
+            binding.tvPriceTitle.visibility = View.VISIBLE
+            binding.tvPriceChild.visibility = View.VISIBLE
+            binding.tvPriceChild.text = detail.price.toString()
+        }
+//
+        if (detail.Description != null){
+            binding.tvDescriptionTitle.visibility = View.VISIBLE
+            binding.tvDescription.visibility = View.VISIBLE
+        }
+
+        if (detail.capacity != null){
+            binding.tvCapacity.visibility = View.VISIBLE
+            binding.tvCapacity.visibility = View.VISIBLE
+        }
+
+        if (detail.year != null){
+            binding.tvYearTitle.visibility = View.VISIBLE
+            binding.tvYear.visibility = View.VISIBLE
+        }
+
+        if (detail.year != null){
+            binding.tvYearTitle.visibility = View.VISIBLE
+            binding.tvYear.visibility = View.VISIBLE
+        }
+
+        if (detail.capacity != null){
+            binding.tvCapacityTitle.visibility = View.VISIBLE
+            binding.tvCapacity.visibility = View.VISIBLE
+        }
+
+        if (detail.caseSize != null){
+            binding.tvCaseSizeTitle.visibility = View.VISIBLE
+            binding.tvCaseSize.visibility = View.VISIBLE
+        }
+        if (detail.generation != null){
+            binding.tvGenerationTitle.visibility = View.VISIBLE
+            binding.tvGeneration.visibility = View.VISIBLE
+        }
+        if (detail.hardDisk != null){
+            binding.tvDisk.visibility = View.VISIBLE
+            binding.tvHardDisk.visibility = View.VISIBLE
+        }
+
+    binding.tvDescription.text = detail.Description
     binding.tvCapacity.text = detail.capacity
+    binding.tvYear.text = detail.year
+    binding.tvCaseSize.text = detail.caseSize
+    binding.tvGeneration.text = detail.generation
+    binding.tvCpuModel.text = detail.cpuModel
+    binding.tvHardDisk.text = detail.hardDisk
+    binding.tvScreenSize.text = detail.screenSize
     }
 }

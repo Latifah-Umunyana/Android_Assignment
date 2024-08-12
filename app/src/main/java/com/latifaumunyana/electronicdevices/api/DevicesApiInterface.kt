@@ -13,6 +13,6 @@ interface DevicesApiInterface {
     suspend fun fetchDevices(): Response<List<Device>>
 
     @GET ("/objects/{id}")
-    suspend fun fetchDeviceDetails(@Path("id") id: Int): Response<Details>
+    suspend fun fetchDeviceDetails(@Path("id") id: Int): Response<Device>
 
 }
